@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvqhpvevwshyk"]
+
+[ext_resource type="Texture2D" uid="uid://050o5wc4l5k5" path="res://Assests/extras/Clock_WGrass.png" id="1_s7hhp"]
+
+[node name="clock" type="Sprite2D"]
+texture = ExtResource("1_s7hhp")
