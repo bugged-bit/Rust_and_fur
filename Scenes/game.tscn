@@ -2143,7 +2143,7 @@ distance = -100.0
 [node name="game" type="Node2D"]
 position = Vector2(2, 0)
 
-[node name="cat" parent="." instance=ExtResource("1_ebmjs")]
+[node name="cat" parent="." groups=["player"] instance=ExtResource("1_ebmjs")]
 z_index = 1
 position = Vector2(0, -1)
 rotation = -0.015948871
