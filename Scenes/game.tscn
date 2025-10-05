@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://dj71lgnhpj2as"]
+[gd_scene load_steps=27 format=4 uid="uid://dj71lgnhpj2as"]
 
 [ext_resource type="PackedScene" uid="uid://snqjgrnibhl5" path="res://Scenes/cat.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://c77yjhuvpe0ta" path="res://Scenes/robot.tscn" id="2_h4fw4"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bheirxdahx3ra" path="res://Assests/background/1.png" id="7_o5yvi"]
 [ext_resource type="PackedScene" uid="uid://cvqhpvevwshyk" path="res://Scenes/clock.tscn" id="8_v158k"]
 [ext_resource type="PackedScene" uid="uid://bb8q2s6txh5yw" path="res://Scenes/battery.tscn" id="10_ldgsr"]
-[ext_resource type="Script" uid="uid://jfcgv5avqwc2" path="res://scripts/battery.gd" id="10_o5yvi"]
 [ext_resource type="PackedScene" uid="uid://1dupfuc4pn48" path="res://Scenes/killzon.tscn" id="11_o5yvi"]
 [ext_resource type="FontFile" uid="uid://bx2bbrq5yo3u3" path="res://Assests/fonts/PixelOperator8-Bold.ttf" id="12_rfjv2"]
 [ext_resource type="Script" uid="uid://drb8n7xl0inle" path="res://scripts/controls.gd" id="13_1phco"]
@@ -2191,12 +2190,22 @@ position = Vector2(-22, -41)
 [node name="battery3" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
 position = Vector2(-145, -6)
-script = ExtResource("10_o5yvi")
 
 [node name="battery2" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
 position = Vector2(-177, -8)
-script = ExtResource("10_o5yvi")
+
+[node name="battery4" parent="battery" instance=ExtResource("10_ldgsr")]
+z_index = 1
+position = Vector2(-108, -17)
+
+[node name="battery5" parent="battery" instance=ExtResource("10_ldgsr")]
+z_index = 1
+position = Vector2(-290, -6)
+
+[node name="battery6" parent="battery" instance=ExtResource("10_ldgsr")]
+z_index = 1
+position = Vector2(-233, -8)
 
 [node name="killzon" parent="." instance=ExtResource("11_o5yvi")]
 z_index = 1
