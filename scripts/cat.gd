@@ -14,7 +14,7 @@ signal inspect_pressed  # emit this when inspect key is pressed
 # CONSTANTS
 # ------------------------
 const SPEED = 300.0
-const JUMP_VELOCITY = -250.0
+const JUMP_VELOCITY = -300.0
 
 # ------------------------
 # VARIABLES
@@ -55,7 +55,8 @@ func _physics_process(delta: float) -> void:
 	# Inspect
 	if Input.is_action_just_pressed("inspect"):
 		inspect()
-		emit_signal("inspect_pressed")  # Robot can listen to this signal
+		DialogueManager.show_dialogue_balloon(load("res://Dialogues/testing123.dialogue"), "start")
+
 
 	# Play animations
 	elif is_on_floor():

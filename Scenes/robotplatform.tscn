@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn0sdrgjyxlhf"]
+
+[ext_resource type="Script" uid="uid://3daivr83a45n" path="res://scripts/robotplatform.gd" id="1_p2urb"]
+[ext_resource type="Texture2D" uid="uid://dosjh5fpk7qhf" path="res://Assests/Idle.png" id="1_wf3xd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtyfn"]
+size = Vector2(101, 24.5)
+
+[node name="robot" type="AnimatableBody2D"]
+script = ExtResource("1_p2urb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, 1)
+texture = ExtResource("1_wf3xd")
+region_enabled = true
+region_rect = Rect2(46, 46, 39, 81)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_wtyfn")
+one_way_collision = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 29)
+shape = SubResource("RectangleShape2D_wtyfn")
+one_way_collision = true

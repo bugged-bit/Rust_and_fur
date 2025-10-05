@@ -1,114 +1,83 @@
 extends Node2D
+# Robot NPC that listens for the player's "inspect" signal only when the player
+# is inside this node's Area2D, then starts a dialogue resource accordingly.
 
-# ------------------------
-# EXPORTS
-# ------------------------
+# --- Editable properties shown in the Inspector ---
 @export var batteries_needed: int = 5
 @export var dialogue_path_first: String = "res://Dialogues/robot_intro.dialogue"
 @export var dialogue_path_second: String = "res://Dialogues/robot_question.dialogue"
 
-# ------------------------
-# NODE REFERENCES
-# ------------------------
+# --- Node references (filled when the scene is ready) ---
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = $Area2D
 @onready var timer3: Timer = $Timer3
 
-# ------------------------
-# VARIABLES
-# ------------------------
+# --- Constants/State ---
+const PLAYER_GROUP := "player"  # The Cat node must be in this group via the editor.
 var battery_count: int = 0
 var revived: bool = false
 var player_in_range: bool = false
+var cat: Node = null  # Will point to the Cat while inside the Area2D.
 
-# ------------------------
-# READY
-# ------------------------
 func _ready() -> void:
-	print("Robot ready. Connecting Area2D signals...")
-	interaction_area.connect("body_entered", Callable(self, "_on_area_entered"))
-	interaction_area.connect("body_exited", Callable(self, "_on_area_exited"))
-	print("Signals connected.")
+	# Wire Area2D proximity signals in code; this is the canonical way to react
+	# when scenes are instanced and to avoid editor-only connections.
+	# (body_entered/body_exited are signals on Area2D.)
+	interaction_area.body_entered.connect(_on_area_entered)
+	interaction_area.body_exited.connect(_on_area_exited)
 
-	# Connect Cat's inspect signal
-	var cat = get_node("cat")  # Adjust path to your scene
-	cat.connect("inspect_pressed", Callable(self, "_on_cat_inspect"))
-	print("Connected to Cat's inspect_pressed signal.")
-
-# ------------------------
-# AREA SIGNALS
-# ------------------------
-func _on_area_entered(body):
-	print("Body entered: ", body.name)
-	if body.is_in_group("player"):
+func _on_area_entered(body: Node) -> void:
+	# Only track bodies that belong to the "player" group (the Cat).
+	if body.is_in_group(PLAYER_GROUP):
 		player_in_range = true
-		print("Player in range!")
+		cat = body
+		# Connect exactly once to the Cat's custom signal emitted on Inspect.
+		if not cat.is_connected("inspect_pressed", Callable(self, "_on_cat_inspect")):
+			cat.connect("inspect_pressed", Callable(self, "_on_cat_inspect"))
 
-func _on_area_exited(body):
-	print("Body exited: ", body.name)
-	if body.is_in_group("player"):
+func _on_area_exited(body: Node) -> void:
+	# When the same Cat leaves, stop listening for its inspect presses.
+	if body == cat:
 		player_in_range = false
-		print("Player left range!")
+		if cat.is_connected("inspect_pressed", Callable(self, "_on_cat_inspect")):
+			cat.disconnect("inspect_pressed", Callable(self, "_on_cat_inspect"))
+		cat = null
 
-# ------------------------
-# CAT INSPECT SIGNAL
-# ------------------------
-func _on_cat_inspect():
-	print("Cat pressed inspect!")
+func _exit_tree() -> void:
+	# Safety: if the scene is freed while still connected, disconnect cleanly.
+	if cat and cat.is_connected("inspect_pressed", Callable(self, "_on_cat_inspect")):
+		cat.disconnect("inspect_pressed", Callable(self, "_on_cat_inspect"))
+
+func _on_cat_inspect() -> void:
+	# Only react to Inspect while the player is in range.
 	if player_in_range:
 		start_dialogue()
-	else:
-		print("But Cat is not in range.")
 
-# ------------------------
-# BATTERY LOGIC
-# ------------------------
 func add_battery() -> void:
+	# Robot revives after enough batteries; early-out if already revived.
 	if revived:
-		print("Battery collected, but robot already revived.")
 		return
-	
 	battery_count += 1
 	Global.battery_count += 1
-	print("+1 battery collected! Total: %d/%d" % [battery_count, batteries_needed])
-
 	if battery_count >= batteries_needed:
 		revive()
 
 func revive() -> void:
+	# Minimal revive feedback; play an idle animation if present.
 	revived = true
-	sprite.play("idle")
-	print("Robot revived!")
-	# Optional: trigger Timer3 or visual effects here
+	if sprite:
+		sprite.play("idle")
 
-# ------------------------
-# DIALOGUE LOGIC
-# ------------------------
-func start_dialogue():
-	print("Attempting to start dialogue...")
-	var dialogue_resource = null
-
-	if Global.robot_met_before:
-		dialogue_resource = load(dialogue_path_second)
-	else:
-		dialogue_resource = load(dialogue_path_first)
-
-	if dialogue_resource == null:
-		push_warning("Dialogue file not found at path: %s" % (dialogue_path_first if not Global.robot_met_before else dialogue_path_second))
+func start_dialogue() -> void:
+	# Choose which dialogue file to show based on a global flag.
+	var res_path: String = dialogue_path_second if Global.robot_met_before else dialogue_path_first
+	# Load the .dialogue resource expected by the DialogueManager addon.
+	var res := load(res_path)
+	if res == null:
 		return
-
+	# First time: open default dialogue; afterwards, jump to an id in the second file.
 	if Global.robot_met_before:
-		print("Starting second dialogue (question)...")
-		DialogueManager.show_dialogue_from_id(dialogue_resource, "start")
+		DialogueManager.show_dialogue_from_id(res, "start")
 	else:
-		print("Starting first dialogue (intro)...")
-		DialogueManager.show_dialogue(dialogue_resource)
+		DialogueManager.show_dialogue(res)
 		Global.robot_met_before = true
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
-
-
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
