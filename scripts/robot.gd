@@ -30,6 +30,11 @@ func _ready() -> void:
 	interaction_area.connect("body_exited", Callable(self, "_on_area_exited"))
 	print("Signals connected.")
 
+	# Connect Cat's inspect signal
+	var cat = get_node("/root/CurrentScene/Cat")  # Adjust path to your scene
+	cat.connect("inspect_pressed", Callable(self, "_on_cat_inspect"))
+	print("Connected to Cat's inspect_pressed signal.")
+
 # ------------------------
 # AREA SIGNALS
 # ------------------------
@@ -46,15 +51,14 @@ func _on_area_exited(body):
 		print("Player left range!")
 
 # ------------------------
-# PROCESS INPUT
+# CAT INSPECT SIGNAL
 # ------------------------
-func _process(_delta):
-	print("Process running")  # Debug: confirm _process() is active
+func _on_cat_inspect():
+	print("Cat pressed inspect!")
 	if player_in_range:
-		print("Player is in range (process check)")
-	if player_in_range and Input.is_action_just_pressed("inspect"):
-		print("Inspect pressed!")
 		start_dialogue()
+	else:
+		print("But Cat is not in range.")
 
 # ------------------------
 # BATTERY LOGIC
@@ -75,7 +79,7 @@ func revive() -> void:
 	revived = true
 	sprite.play("idle")
 	print("Robot revived!")
-	# Optional: you can trigger Timer3 or visual effects here
+	# Optional: trigger Timer3 or visual effects here
 
 # ------------------------
 # DIALOGUE LOGIC
