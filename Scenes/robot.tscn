@@ -1,14 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://c77yjhuvpe0ta"]
+[gd_scene load_steps=33 format=3 uid="uid://c77yjhuvpe0ta"]
 
 [ext_resource type="Texture2D" uid="uid://ymimknydr5lf" path="res://Assests/Shutdown.png" id="1_ntbue"]
 [ext_resource type="Texture2D" uid="uid://blp0ilbyocers" path="res://Assests/Dead.png" id="2_8s4wd"]
 [ext_resource type="Texture2D" uid="uid://dosjh5fpk7qhf" path="res://Assests/Idle.png" id="3_7cjo4"]
 [ext_resource type="Texture2D" uid="uid://cf7jcp28see7y" path="res://Assests/Walk.png" id="4_dcvsp"]
-[ext_resource type="Script" path="res://scripts/robot.gd" id="5_m0m82"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pwfsi"]
-atlas = ExtResource("1_ntbue")
-region = Rect2(512, 0, 128, 128)
+[ext_resource type="Script" uid="uid://b2uhh4catei5f" path="res://scripts/robot.gd" id="5_m0m82"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rnk85"]
 atlas = ExtResource("2_8s4wd")
@@ -114,14 +110,6 @@ region = Rect2(896, 0, 128, 128)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pwfsi")
-}],
-"loop": true,
-"name": &"dead",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_rnk85")
 }, {
 "duration": 1.0,
@@ -224,12 +212,14 @@ scale = Vector2(1.3, 1.3)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ni1om")
-animation = &"walk"
-autoplay = "dead"
-frame = 6
-frame_progress = 0.39559242
+animation = &"idle"
+autoplay = "idle"
 script = ExtResource("5_m0m82")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DetectionArea" type="CollisionShape2D" parent="."]
 position = Vector2(4, 34.5)
 shape = SubResource("RectangleShape2D_882py")
+
+[node name="Timer3" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

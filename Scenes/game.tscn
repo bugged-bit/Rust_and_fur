@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://dj71lgnhpj2as"]
+[gd_scene load_steps=28 format=4 uid="uid://dj71lgnhpj2as"]
 
 [ext_resource type="PackedScene" uid="uid://snqjgrnibhl5" path="res://Scenes/cat.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://c77yjhuvpe0ta" path="res://Scenes/robot.tscn" id="2_h4fw4"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://1dupfuc4pn48" path="res://Scenes/killzon.tscn" id="11_o5yvi"]
 [ext_resource type="FontFile" uid="uid://bx2bbrq5yo3u3" path="res://Assests/fonts/PixelOperator8-Bold.ttf" id="12_rfjv2"]
 [ext_resource type="Script" uid="uid://drb8n7xl0inle" path="res://scripts/controls.gd" id="13_1phco"]
+[ext_resource type="FontFile" uid="uid://dyqsdvylphkoj" path="res://Assests/fonts/PixelOperator8.ttf" id="14_1phco"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7t8sx"]
 texture = ExtResource("7_o5yvi")
@@ -2189,23 +2190,23 @@ position = Vector2(-22, -41)
 
 [node name="battery3" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
-position = Vector2(-145, -6)
+position = Vector2(-145, -10)
 
 [node name="battery2" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
-position = Vector2(-177, -8)
+position = Vector2(-177, -10)
 
 [node name="battery4" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
-position = Vector2(-108, -17)
+position = Vector2(-108, -10)
 
 [node name="battery5" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
-position = Vector2(-290, -6)
+position = Vector2(-290, -10)
 
 [node name="battery6" parent="battery" instance=ExtResource("10_ldgsr")]
 z_index = 1
-position = Vector2(-233, -8)
+position = Vector2(-233, -10)
 
 [node name="killzon" parent="." instance=ExtResource("11_o5yvi")]
 z_index = 1
@@ -2217,11 +2218,17 @@ collision_mask = 2
 position = Vector2(-1, -19)
 shape = SubResource("WorldBoundaryShape2D_o5yvi")
 
-[node name="controls" type="Label" parent="."]
+[node name="Robot" parent="." instance=ExtResource("2_h4fw4")]
 z_index = 1
-offset_left = -172.0
+position = Vector2(564, -83)
+
+[node name="labels" type="Node" parent="."]
+
+[node name="controls" type="Label" parent="labels"]
+z_index = 1
+offset_left = -170.0
 offset_top = 20.0
-offset_right = 172.0
+offset_right = 174.0
 offset_bottom = 74.0
 theme_override_colors/font_color = Color(0.54509807, 0.67058825, 0.7490196, 1)
 theme_override_fonts/font = ExtResource("12_rfjv2")
@@ -2231,12 +2238,20 @@ WASD/arrow keys to move
 E to inspect"
 script = ExtResource("13_1phco")
 
-[node name="Timer2" type="Timer" parent="controls"]
+[node name="Timer2" type="Timer" parent="labels/controls"]
 wait_time = 5.0
 one_shot = true
 
-[node name="Robot" parent="." instance=ExtResource("2_h4fw4")]
-z_index = 1
-position = Vector2(564, -83)
+[node name="Mission1" type="Label" parent="labels"]
+offset_left = 460.0
+offset_top = -131.0
+offset_right = 660.0
+offset_bottom = -101.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6392157)
+theme_override_fonts/font = ExtResource("14_1phco")
+theme_override_font_sizes/font_size = 8
+text = "it......hurts
+low.....battery
+Please......find.......5 batteries"
 
-[connection signal="timeout" from="controls/Timer2" to="controls" method="_on_timer_2_timeout"]
+[connection signal="timeout" from="labels/controls/Timer2" to="labels/controls" method="_on_timer_2_timeout"]
