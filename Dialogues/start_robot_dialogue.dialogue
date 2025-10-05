@@ -8,10 +8,9 @@ Rust: please... find [wait=1] 5 batteries... [wait=0.5] before my light goes out
 Fur: Don’t worry, I’ll find them! Just... hang on, okay?
 Rust: ...Did you... find them... all?
 - Yes
-	=>< snippet1
-	-> set_chose_yes(true)
+    =>< snippet1
 - Not yet
-	=>< snippet2
+    =>< snippet2
 => END
 
 ~ snippet1
@@ -21,6 +20,7 @@ Rust: Tell me, kind soul... [wait=0.5] what is your wish?
 Fur: I... I wish for the sun... [wait=0.5] for light... [wait=0.6] for a better world...
 Rust: [wait=1]Then... [wait=0.4] let me grant you... what little I can...
 Rust: Heh... don’t just stand there, hop on! I’ve got you.
+-> set_chose_yes(true)
 => END
 
 ~ snippet2

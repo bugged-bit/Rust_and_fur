@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://baljirb2iq3mu"
+path="res://.godot/imported/start_robot_dialogue.dialogue-d6b8524f74b78179c35a3829c42a25fd.tres"
+
+[deps]
+
+source_file="res://Dialogues/start_robot_dialogue.dialogue"
+dest_files=["res://.godot/imported/start_robot_dialogue.dialogue-d6b8524f74b78179c35a3829c42a25fd.tres"]
+
+[params]
+
+defaults=true
