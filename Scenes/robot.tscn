@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c77yjhuvpe0ta"]
+[gd_scene load_steps=34 format=3 uid="uid://c77yjhuvpe0ta"]
 
 [ext_resource type="Texture2D" uid="uid://ymimknydr5lf" path="res://Assests/Shutdown.png" id="1_ntbue"]
 [ext_resource type="Texture2D" uid="uid://blp0ilbyocers" path="res://Assests/Dead.png" id="2_8s4wd"]
@@ -207,14 +207,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_882py"]
 size = Vector2(18, 57)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ntbue"]
+radius = 12.162606
+
 [node name="Robot" type="CharacterBody2D"]
 scale = Vector2(1.3, 1.3)
+script = ExtResource("5_m0m82")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ni1om")
 animation = &"idle"
 autoplay = "idle"
-script = ExtResource("5_m0m82")
 
 [node name="DetectionArea" type="CollisionShape2D" parent="."]
 position = Vector2(4, 34.5)
@@ -223,3 +226,9 @@ shape = SubResource("RectangleShape2D_882py")
 [node name="Timer3" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5384612, 53.076927)
+shape = SubResource("CircleShape2D_ntbue")
