@@ -25,26 +25,35 @@ var player_in_range: bool = false
 # READY
 # ------------------------
 func _ready() -> void:
-	# Connect signals for player proximity
+	print("Robot ready. Connecting Area2D signals...")
 	interaction_area.connect("body_entered", Callable(self, "_on_area_entered"))
 	interaction_area.connect("body_exited", Callable(self, "_on_area_exited"))
+	print("Signals connected.")
 
 # ------------------------
 # AREA SIGNALS
 # ------------------------
 func _on_area_entered(body):
+	print("Body entered: ", body.name)
 	if body.is_in_group("player"):
 		player_in_range = true
+		print("Player in range!")
 
 func _on_area_exited(body):
+	print("Body exited: ", body.name)
 	if body.is_in_group("player"):
 		player_in_range = false
+		print("Player left range!")
 
 # ------------------------
 # PROCESS INPUT
 # ------------------------
 func _process(_delta):
+	print("Process running")  # Debug: confirm _process() is active
+	if player_in_range:
+		print("Player is in range (process check)")
 	if player_in_range and Input.is_action_just_pressed("inspect"):
+		print("Inspect pressed!")
 		start_dialogue()
 
 # ------------------------
@@ -52,6 +61,7 @@ func _process(_delta):
 # ------------------------
 func add_battery() -> void:
 	if revived:
+		print("Battery collected, but robot already revived.")
 		return
 	
 	battery_count += 1
@@ -71,6 +81,7 @@ func revive() -> void:
 # DIALOGUE LOGIC
 # ------------------------
 func start_dialogue():
+	print("Attempting to start dialogue...")
 	var dialogue_resource = null
 
 	if Global.robot_met_before:
@@ -83,7 +94,9 @@ func start_dialogue():
 		return
 
 	if Global.robot_met_before:
+		print("Starting second dialogue (question)...")
 		DialogueManager.show_dialogue_from_id(dialogue_resource, "start")
 	else:
+		print("Starting first dialogue (intro)...")
 		DialogueManager.show_dialogue(dialogue_resource)
 		Global.robot_met_before = true
