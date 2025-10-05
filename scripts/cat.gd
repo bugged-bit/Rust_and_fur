@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	# Animations
 	if Input.is_action_just_pressed("inspect"):
 		inspect()
-		DialogueManager.show_dialogue_balloon(load("res://Dialogues/testing123.dialogue"), "start")
+		
 	elif is_on_floor():
 		if direction == 0:
 			animated_sprite.play("idle")

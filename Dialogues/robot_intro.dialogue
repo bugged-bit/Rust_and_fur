@@ -1,0 +1,24 @@
+~ start
+Fur: Hey???
+Rust: low [wait=0.8] battery
+Rust: please [wave]help[/wave]
+Fur: How?
+Rust: please find [wait=1] 5 batteries
+Rust: Did you find 5 batteries?
+- Yes
+    => snippet1
+- Not yet
+    => snippet2
+=> END
+
+~ snippet1
+Rust: THANK YOU! You gave me life again.
+Rust: Tell me your wish, kind one.
+Fur: I wish for the sun, for light, for a better world.
+Rust: Jump on me... and we shall chase that light together.
+=> END
+
+~ snippet2
+Rust: Then go, little one... I can’t hold on much longer.
+Fur: ON IT SIR!
+=> END

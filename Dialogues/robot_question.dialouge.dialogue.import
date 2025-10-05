@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dwlny28ndarmk"
+path="res://.godot/imported/robot_question.dialouge.dialogue-a874916744ee1ac2b299a53514df6611.tres"
+
+[deps]
+
+source_file="res://Dialogues/robot_question.dialouge.dialogue"
+dest_files=["res://.godot/imported/robot_question.dialouge.dialogue-a874916744ee1ac2b299a53514df6611.tres"]
+
+[params]
+
+defaults=true
