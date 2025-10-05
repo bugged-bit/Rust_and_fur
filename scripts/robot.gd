@@ -1,11 +1,16 @@
 extends AnimatedSprite2D
 
+@export var batteries_needed: int = 5
+var battery_count: int = 0
+var revived: bool = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func add_battery() -> void:
+	if revived:
+		return
+	battery_count += 1
+	if battery_count >= batteries_needed:
+		revive()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func revive() -> void:
+	revived = true
+	play("idle") # Idle animation will loop if it's set to loop in the editor
