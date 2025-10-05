@@ -31,7 +31,7 @@ func _ready() -> void:
 	print("Signals connected.")
 
 	# Connect Cat's inspect signal
-	var cat = get_node("/root/CurrentScene/Cat")  # Adjust path to your scene
+	var cat = get_node("cat")  # Adjust path to your scene
 	cat.connect("inspect_pressed", Callable(self, "_on_cat_inspect"))
 	print("Connected to Cat's inspect_pressed signal.")
 
@@ -104,3 +104,11 @@ func start_dialogue():
 		print("Starting first dialogue (intro)...")
 		DialogueManager.show_dialogue(dialogue_resource)
 		Global.robot_met_before = true
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.
