@@ -17,3 +17,5 @@ This was our first game, made in just 2 days. We learned a lot, had fun, and fac
 Shoutouts:
 Daydream Organization Team
 Scalar School of Technology
+
+P.S this game is NOT complete, we had to make SO many variations to our original idea ONLY because of time restraints and lack of skills, i genuienly hope i can ONE DAY make a game out of my original vision but for now please manage with this shrunk down, kind of incomplete but full of heart game.
